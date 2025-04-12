@@ -128,7 +128,7 @@
             Controls.Add(txtTitle);
             Controls.Add(txtPatternDisplay);
             Name = "SavePatternForm";
-            Text = "SavePatternForm";
+            Text = "Save Pattern";
             Load += SavePatternForm_Load;
             ResumeLayout(false);
             PerformLayout();
