@@ -47,7 +47,9 @@
 
 ## 🖼️ Screenshots
 
-> *Add screenshots in the **`/screenshots`** folder and embed them here*
+![Main Screen](screenshots/1.png)
+![Default Patterns](screenshots/2.png)
+![Add Pattern](screenshots/3.png)
 
 ---
 
