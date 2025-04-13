@@ -416,7 +416,7 @@ namespace RegexLab
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
-                FileName = "https://github.com/senin-linkin-buraya", // GitHub adresin buraya
+                FileName = "https://github.com/Zulwatha/RegexLab", // GitHub adresin buraya
                 UseShellExecute = true
             });
         }
@@ -433,7 +433,7 @@ namespace RegexLab
         private void menuAbout_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "RegexLab v1.0\n\nDeveloped by: [Your Name]\nGitHub: github.com/Zulwatha\n\nA smart regex testing and filtering tool built with ❤️ in C#.",
+                "RegexLab v1.0\n\nDeveloped by: [Your Name]\nGitHub: github.com/yourusername\n\nA smart regex testing and filtering tool built with ❤️ in C#.",
                 "About RegexLab",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);

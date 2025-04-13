@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageIcon>rlab.icon.png</PackageIcon>
+    <PackageIcon>fav.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Zulwatha/RegexLab</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Zulwatha/RegexLab</RepositoryUrl>
@@ -77,7 +77,13 @@ This version focuses on performance, simplicity, and quick regex utility without
     <Description>RegexLab is a modern, lightweight, and extensible desktop application for testing, organizing, and exporting Regular Expressions (RegEx). Built with C# and Windows Forms, it aims to be both beginner-friendly and powerful for advanced users.</Description>
     <Authors>https://github.com/Zulwatha</Authors>
     <Title>RegexLab -  Regex test and pattern library tool built with C#</Title>
+    <Platforms>AnyCPU</Platforms>
+    <ApplicationIcon>fav.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="fav.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
@@ -88,7 +94,22 @@ This version focuses on performance, simplicity, and quick regex utility without
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="bin\Debug\net8.0-windows\rlab.icon.png">
+    <None Include="bin\Debug\net8.0-windows\fav.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="bin\Release\net8.0-windows\fav.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="fav.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="fav.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

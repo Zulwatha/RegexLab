@@ -77,7 +77,10 @@ RegexLab/
 
 ---
 
+
 ## 🔧 How to Run
+
+⚠️ Requires .NET 8 Desktop Runtime → [Download here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
 1. Clone the repository:
 
