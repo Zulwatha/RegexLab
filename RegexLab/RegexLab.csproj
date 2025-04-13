@@ -7,9 +7,87 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageIcon>rlab.icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/Zulwatha/RegexLab</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Zulwatha/RegexLab</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>regex, regex-tool, text-processing, developer-tools, pattern-matching, syntax-highlighting, regex-tester, web-utility, productivity-tool, open-source</PackageTags>
+    <PackageReleaseNotes>📦 RegexLab v1.0 — Initial Release
+
+First public release of RegexLab, a modern and lightweight desktop tool for working with regular expressions.
+🚀 Features
+
+    🧪 Regex Testing Interface
+
+        Test patterns against custom input text
+
+        See real-time matches and match count
+
+    📚 Pattern Library
+
+        Built-in default patterns (Email, URL, IP, Domain)
+
+        Save your own patterns with title, description, and tags
+
+        Switch between default and custom via toggle
+
+    💾 Export System
+
+        Export matched results to .txt or .json
+
+        Clean formatting with summary and total count
+
+    🎛️ Tools Menu Options
+
+        Duplicate filtering
+
+        Case-insensitive match mode
+
+        Sort alphabetically
+
+        Trim leading/trailing spaces
+
+    🌗 Dark Theme Toggle
+
+    🖥️ Resizable Interface with Split Layout
+
+    🧠 Tooltip Pattern Info + Mouseover UX
+
+    📁 File &gt; Open — Load input text from .txt file
+
+    📦 Settings &amp; Menu UX
+
+        File, Edit, View, Help with working shortcuts and structure
+
+        GitHub, Regex Reference, Update Check
+
+🔧 Technologies
+
+    Developed in C# (WinForms) using .NET 8.0
+
+    Data managed via JSON
+
+    Fully self-contained and offline-ready
+
+🙌 Notes
+
+RegexLab is designed for developers, testers, and analysts who work frequently with raw text data.
+This version focuses on performance, simplicity, and quick regex utility without unnecessary bloat.</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Description>RegexLab is a modern, lightweight, and extensible desktop application for testing, organizing, and exporting Regular Expressions (RegEx). Built with C# and Windows Forms, it aims to be both beginner-friendly and powerful for advanced users.</Description>
+    <Authors>https://github.com/Zulwatha</Authors>
+    <Title>RegexLab -  Regex test and pattern library tool built with C#</Title>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="bin\Debug\net8.0-windows\rlab.icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
