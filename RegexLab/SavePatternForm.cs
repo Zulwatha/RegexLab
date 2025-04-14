@@ -34,44 +34,128 @@ namespace RegexLab
         private void SavePatternForm_Load(object sender, EventArgs e)
         {
             txtPatternDisplay.Text = patternText;
+            LoadPatternsToList();
+
+        }
+        private void LoadPatternsToList()
+        {
+            lstPatterns.Items.Clear();
+
+            string path = "saved_patterns.json";
+            if (File.Exists(path))
+            {
+                string json = File.ReadAllText(path);
+                var patterns = JsonSerializer.Deserialize<List<RegexPattern>>(json);
+                foreach (var p in patterns)
+                {
+                    lstPatterns.Items.Add(p.Title);
+                }
+            }
         }
 
         // Handles saving the new pattern to the custom patterns JSON
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Validate that title and description are provided
-            if (string.IsNullOrWhiteSpace(txtTitle.Text) || string.IsNullOrWhiteSpace(txtDescription.Text))
+            if (string.IsNullOrWhiteSpace(txtTitle.Text) || string.IsNullOrWhiteSpace(txtPatternDisplay.Text))
             {
-                MessageBox.Show("Please fill in all fields.");
+                MessageBox.Show("Title and Pattern are required.");
                 return;
             }
 
-            // Create new RegexPattern object with user input
-            RegexPattern pattern = new RegexPattern
+            var newPattern = new RegexPattern
             {
                 Title = txtTitle.Text.Trim(),
-                Pattern = patternText, // Regex pattern passed from main form
+                Pattern = txtPatternDisplay.Text.Trim(),
                 Description = txtDescription.Text.Trim(),
-                Tags = txtTags.Text.Split(',').Select(t => t.Trim()).Where(t => t != "").ToList() // Parse comma-separated tags
+                Tags = txtTags.Text.Split(',').Select(t => t.Trim()).Where(t => !string.IsNullOrWhiteSpace(t)).ToList()
             };
 
-            string filePath = "saved_patterns.json";
+            string path = "saved_patterns.json";
             List<RegexPattern> patterns = new();
 
-            // If file exists, load existing patterns from it
-            if (File.Exists(filePath))
+            if (File.Exists(path))
             {
-                string existingJson = File.ReadAllText(filePath);
+                string existingJson = File.ReadAllText(path);
                 patterns = JsonSerializer.Deserialize<List<RegexPattern>>(existingJson);
             }
 
-            // Add new pattern to the list and save back to file
-            patterns.Add(pattern);
-            string newJson = JsonSerializer.Serialize(patterns, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, newJson);
+            patterns.Add(newPattern);
+            File.WriteAllText(path, JsonSerializer.Serialize(patterns, new JsonSerializerOptions { WriteIndented = true }));
 
-            MessageBox.Show("Pattern saved successfully!");
-            this.Close(); // Close the save form
+            LoadPatternsToList();
+            MessageBox.Show("New pattern saved!");
         }
+
+
+        private void lstPatterns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = lstPatterns.SelectedIndex;
+            if (index < 0) return;
+
+            string path = "saved_patterns.json";
+            var json = File.ReadAllText(path);
+            var patterns = JsonSerializer.Deserialize<List<RegexPattern>>(json);
+
+            var selected = patterns[index];
+
+            txtTitle.Text = selected.Title;
+            txtPatternDisplay.Text = selected.Pattern;
+            txtDescription.Text = selected.Description;
+            txtTags.Text = string.Join(", ", selected.Tags);
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int index = lstPatterns.SelectedIndex;
+            if (index < 0)
+            {
+                MessageBox.Show("Please select a pattern to update.");
+                return;
+            }
+
+            string path = "saved_patterns.json";
+            var json = File.ReadAllText(path);
+            var patterns = JsonSerializer.Deserialize<List<RegexPattern>>(json);
+
+            patterns[index] = new RegexPattern
+            {
+                Title = txtTitle.Text.Trim(),
+                Pattern = txtPatternDisplay.Text.Trim(),
+                Description = txtDescription.Text.Trim(),
+                Tags = txtTags.Text.Split(',').Select(t => t.Trim()).Where(t => !string.IsNullOrWhiteSpace(t)).ToList()
+            };
+
+            File.WriteAllText(path, JsonSerializer.Serialize(patterns, new JsonSerializerOptions { WriteIndented = true }));
+            LoadPatternsToList();
+            MessageBox.Show("Pattern updated!");
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int index = lstPatterns.SelectedIndex;
+            if (index < 0)
+            {
+                MessageBox.Show("Please select a pattern to delete.");
+                return;
+            }
+
+            var confirm = MessageBox.Show("Are you sure you want to delete this pattern?",
+                                          "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm != DialogResult.Yes) return;
+
+            string path = "saved_patterns.json";
+            var json = File.ReadAllText(path);
+            var patterns = JsonSerializer.Deserialize<List<RegexPattern>>(json);
+
+            patterns.RemoveAt(index);
+            File.WriteAllText(path, JsonSerializer.Serialize(patterns, new JsonSerializerOptions { WriteIndented = true }));
+            LoadPatternsToList();
+            txtTitle.Clear();
+            txtPatternDisplay.Clear();
+            txtDescription.Clear();
+            txtTags.Clear();
+            MessageBox.Show("Pattern deleted.");
+        }
+
     }
 }

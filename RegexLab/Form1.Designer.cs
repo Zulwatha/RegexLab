@@ -40,11 +40,11 @@
             rbtnDefault = new RadioButton();
             rbtnCustom = new RadioButton();
             cmbPatterns = new ComboBox();
-            btnSaveAs = new Button();
             mainMenuStrip = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             menuOpenFile = new ToolStripMenuItem();
             saveAsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
             exitToolStripMenuItem = new ToolStripMenuItem();
             ediToolStripMenuItem = new ToolStripMenuItem();
             menuUndo = new ToolStripMenuItem();
@@ -59,6 +59,8 @@
             menuSortAlphabetically = new ToolStripMenuItem();
             menuTrimSpaces = new ToolStripMenuItem();
             menuIgnoreCase = new ToolStripMenuItem();
+            libraryToolStripMenuItem = new ToolStripMenuItem();
+            customPatternsToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem1 = new ToolStripMenuItem();
             howToUseToolStripMenuItem = new ToolStripMenuItem();
             regexReferenceToolStripMenuItem = new ToolStripMenuItem();
@@ -68,11 +70,17 @@
             toolTip1 = new ToolTip(components);
             lblPatternInfo = new Label();
             splitContainer1 = new SplitContainer();
+            menuExportOptions = new ContextMenuStrip(components);
+            menuExportSave = new ToolStripMenuItem();
+            menuExportCopy = new ToolStripMenuItem();
+            btnExport = new Button();
+            versionInfo = new Label();
             mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            menuExportOptions.SuspendLayout();
             SuspendLayout();
             // 
             // txtRegex
@@ -88,16 +96,18 @@
             txtInputText.Location = new Point(0, 0);
             txtInputText.Multiline = true;
             txtInputText.Name = "txtInputText";
+            txtInputText.ScrollBars = ScrollBars.Vertical;
             txtInputText.Size = new Size(564, 627);
             txtInputText.TabIndex = 50;
+            txtInputText.WordWrap = false;
             // 
             // btnTest
             // 
             btnTest.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnTest.Font = new Font("Arial", 15F);
-            btnTest.Location = new Point(432, 705);
+            btnTest.Location = new Point(449, 707);
             btnTest.Name = "btnTest";
-            btnTest.Size = new Size(308, 45);
+            btnTest.Size = new Size(270, 46);
             btnTest.TabIndex = 2;
             btnTest.Text = "RUN";
             btnTest.UseVisualStyleBackColor = true;
@@ -110,15 +120,17 @@
             txtOutputText.Multiline = true;
             txtOutputText.Name = "txtOutputText";
             txtOutputText.ReadOnly = true;
+            txtOutputText.ScrollBars = ScrollBars.Vertical;
             txtOutputText.Size = new Size(554, 627);
             txtOutputText.TabIndex = 51;
+            txtOutputText.WordWrap = false;
             // 
             // btnClear
             // 
             btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnClear.Location = new Point(1009, 705);
+            btnClear.Location = new Point(948, 707);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(132, 45);
+            btnClear.Size = new Size(90, 35);
             btnClear.TabIndex = 7;
             btnClear.Text = "Clear All";
             btnClear.UseVisualStyleBackColor = true;
@@ -180,21 +192,10 @@
             cmbPatterns.TabIndex = 12;
             cmbPatterns.SelectedIndexChanged += cmbPatterns_SelectedIndexChanged;
             // 
-            // btnSaveAs
-            // 
-            btnSaveAs.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSaveAs.Location = new Point(873, 708);
-            btnSaveAs.Name = "btnSaveAs";
-            btnSaveAs.Size = new Size(130, 42);
-            btnSaveAs.TabIndex = 13;
-            btnSaveAs.Text = "Sava As";
-            btnSaveAs.UseVisualStyleBackColor = true;
-            btnSaveAs.Click += btnSaveAs_Click;
-            // 
             // mainMenuStrip
             // 
             mainMenuStrip.ImageScalingSize = new Size(20, 20);
-            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, ediToolStripMenuItem, viewToolStripMenuItem, helpToolStripMenuItem, helpToolStripMenuItem1 });
+            mainMenuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, ediToolStripMenuItem, viewToolStripMenuItem, helpToolStripMenuItem, libraryToolStripMenuItem, helpToolStripMenuItem1 });
             mainMenuStrip.Location = new Point(0, 0);
             mainMenuStrip.Name = "mainMenuStrip";
             mainMenuStrip.Size = new Size(1152, 28);
@@ -203,7 +204,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuOpenFile, saveAsToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuOpenFile, saveAsToolStripMenuItem, toolStripSeparator1, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(46, 24);
             fileToolStripMenuItem.Text = "File";
@@ -221,6 +222,11 @@
             saveAsToolStripMenuItem.Size = new Size(143, 26);
             saveAsToolStripMenuItem.Text = "Save As";
             saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(140, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -321,6 +327,20 @@
             menuIgnoreCase.Size = new Size(193, 26);
             menuIgnoreCase.Text = "Ignore Case";
             // 
+            // libraryToolStripMenuItem
+            // 
+            libraryToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { customPatternsToolStripMenuItem });
+            libraryToolStripMenuItem.Name = "libraryToolStripMenuItem";
+            libraryToolStripMenuItem.Size = new Size(68, 24);
+            libraryToolStripMenuItem.Text = "Library";
+            // 
+            // customPatternsToolStripMenuItem
+            // 
+            customPatternsToolStripMenuItem.Name = "customPatternsToolStripMenuItem";
+            customPatternsToolStripMenuItem.Size = new Size(198, 26);
+            customPatternsToolStripMenuItem.Text = "Custom Patterns";
+            customPatternsToolStripMenuItem.Click += customPatternsToolStripMenuItem_Click_1;
+            // 
             // helpToolStripMenuItem1
             // 
             helpToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { howToUseToolStripMenuItem, regexReferenceToolStripMenuItem, aboutRegexLabToolStripMenuItem, checkForUpdatesToolStripMenuItem, contactFeedbackToolStripMenuItem });
@@ -396,14 +416,57 @@
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
             // 
+            // menuExportOptions
+            // 
+            menuExportOptions.ImageScalingSize = new Size(20, 20);
+            menuExportOptions.Items.AddRange(new ToolStripItem[] { menuExportSave, menuExportCopy });
+            menuExportOptions.Name = "menuExportOptions";
+            menuExportOptions.Size = new Size(201, 52);
+            // 
+            // menuExportSave
+            // 
+            menuExportSave.Name = "menuExportSave";
+            menuExportSave.Size = new Size(200, 24);
+            menuExportSave.Text = "Save As";
+            menuExportSave.Click += menuExportSave_Click;
+            // 
+            // menuExportCopy
+            // 
+            menuExportCopy.Name = "menuExportCopy";
+            menuExportCopy.Size = new Size(200, 24);
+            menuExportCopy.Text = "Copy to Clipboard";
+            menuExportCopy.Click += menuExportCopy_Click;
+            // 
+            // btnExport
+            // 
+            btnExport.Location = new Point(1044, 707);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(96, 35);
+            btnExport.TabIndex = 18;
+            btnExport.Text = "Export ▼";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
+            // 
+            // versionInfo
+            // 
+            versionInfo.AutoSize = true;
+            versionInfo.Font = new Font("Segoe UI", 7F);
+            versionInfo.ForeColor = SystemColors.GrayText;
+            versionInfo.Location = new Point(3, 745);
+            versionInfo.Name = "versionInfo";
+            versionInfo.Size = new Size(37, 15);
+            versionInfo.TabIndex = 19;
+            versionInfo.Text = "v1.1.0";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1152, 763);
+            Controls.Add(versionInfo);
+            Controls.Add(btnExport);
             Controls.Add(splitContainer1);
             Controls.Add(lblPatternInfo);
-            Controls.Add(btnSaveAs);
             Controls.Add(cmbPatterns);
             Controls.Add(rbtnCustom);
             Controls.Add(rbtnDefault);
@@ -418,7 +481,7 @@
             MainMenuStrip = mainMenuStrip;
             MaximizeBox = false;
             Name = "Form1";
-            Text = "RegexLab";
+            Text = "RegexLab -  Regex Test and Pattern Library Tool";
             Load += Form1_Load;
             mainMenuStrip.ResumeLayout(false);
             mainMenuStrip.PerformLayout();
@@ -428,6 +491,7 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            menuExportOptions.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -444,7 +508,6 @@
         private RadioButton rbtnDefault;
         private RadioButton rbtnCustom;
         private ComboBox cmbPatterns;
-        private Button btnSaveAs;
         private MenuStrip mainMenuStrip;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem menuOpenFile;
@@ -472,5 +535,13 @@
         private ToolStripMenuItem checkForUpdatesToolStripMenuItem;
         private ToolStripMenuItem contactFeedbackToolStripMenuItem;
         private SplitContainer splitContainer1;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem libraryToolStripMenuItem;
+        private ToolStripMenuItem customPatternsToolStripMenuItem;
+        private ContextMenuStrip menuExportOptions;
+        private ToolStripMenuItem menuExportSave;
+        private ToolStripMenuItem menuExportCopy;
+        private Button btnExport;
+        private Label versionInfo;
     }
 }

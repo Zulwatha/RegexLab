@@ -8,13 +8,5 @@
       "test_tag2",
       "test_tag3"
     ]
-  },
-  {
-    "Title": "test2",
-    "Pattern": "testestest",
-    "Description": "test2",
-    "Tags": [
-      "test"
-    ]
   }
 ]

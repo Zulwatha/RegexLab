@@ -416,7 +416,7 @@ namespace RegexLab
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
-                FileName = "https://github.com/Zulwatha/RegexLab", // GitHub adresin buraya
+                FileName = "https://github.com/Zulwatha/RegexLab", // GitHub adress
                 UseShellExecute = true
             });
         }
@@ -438,6 +438,93 @@ namespace RegexLab
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
+
+
+
+        private void customPatternsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            SavePatternForm form = new SavePatternForm();
+            form.ShowDialog();
+
+        }
+
+        private void SelectAll_Click(object sender, EventArgs e)
+        {
+            var tb = GetFocusedTextBox();
+            if (tb != null)
+                tb.SelectAll(); // Selects all text in the focused box
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            // Show context menu just below the button
+            menuExportOptions.Show(btnExport, new Point(0, btnExport.Height));
+        }
+
+        private void menuExportSave_Click(object sender, EventArgs e)
+        {
+            // Check if there is any output to save
+            if (string.IsNullOrWhiteSpace(txtOutputText.Text))
+            {
+                MessageBox.Show("There is no data to save.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Show Save File Dialog
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Title = "Save Output";
+            saveDialog.Filter = "Text Files (*.txt)|*.txt|JSON Files (*.json)|*.json";
+            saveDialog.FileName = "regex_results";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = saveDialog.FileName;
+
+                try
+                {
+                    // If JSON format is selected
+                    if (Path.GetExtension(path).ToLower() == ".json")
+                    {
+                        var matches = txtOutputText.Text
+                            .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                            .ToList();
+
+                        var exportObj = new
+                        {
+                            pattern = txtRegex.Text,
+                            matches = matches,
+                            total = matches.Count
+                        };
+
+                        string json = JsonSerializer.Serialize(exportObj, new JsonSerializerOptions { WriteIndented = true });
+                        File.WriteAllText(path, json);
+                    }
+                    else // Save as plain .txt
+                    {
+                        File.WriteAllText(path, txtOutputText.Text);
+                    }
+
+                    MessageBox.Show("Output saved successfully!", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to save file:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void menuExportCopy_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtOutputText.Text))
+            {
+                MessageBox.Show("There is no output to copy.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Clipboard.SetText(txtOutputText.Text); // Copy output text to clipboard
+            MessageBox.Show("Output copied to clipboard!", "Copied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
     }
 
 }
